@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   numericInput: {
     width: '100%',
     textAlign: 'center',
-    color: 'white',
+    color: Colors.text,
   },
 
   buttonsContainer: {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
 
   defaultText: {
-    color: 'white',
+    color: Colors.text,
   },
 
   button: {

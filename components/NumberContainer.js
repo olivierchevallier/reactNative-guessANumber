@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const NumberContainer = props => {
   let number = parseInt(props.children);
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
 
   number: {
-    color: 'white',
+    color: Colors.text,
     marginVertical: 10,
     textAlign: 'center',
     fontSize: 40,
