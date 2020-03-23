@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { 
+  View, 
+  Text, 
+  Button, 
+  StyleSheet, 
+  TouchableWithoutFeedback, 
+  Keyboard, 
+  Alert,
+} from 'react-native';
 
 import Card from '../components/Card';
 import Input from '../components/Input';
 import Colors from '../constants/colors';
+import NumberContainer from '../components/NumberContainer';
 import { reset } from 'expo/build/AR';
 
 const StartGameScreen = props => {
@@ -29,13 +38,19 @@ const StartGameScreen = props => {
     setConfirmed(true);
     setSelectedNumber(chosenNumber);
     setEnteredValue('');
+    Keyboard.dismiss();
   }
 
   let confirmOutput;
 
   if (confirmed) {
-    console.log("oui ? " + confirmed);
-    confirmOutput = <Text style={ styles.defaultText }>Nombre choisi : { selectedNumber }</Text>
+    confirmOutput = (
+      <Card style={ styles.confirmationContainer }>
+        <Text style={ [styles.defaultText, styles.confirmationTitle] }>Vous avez choisi le nombre</Text>
+        <NumberContainer>{ selectedNumber }</NumberContainer>
+        <Button title="Commencer " />
+      </Card>
+    );
   }
 
   return (
@@ -102,6 +117,19 @@ const styles = StyleSheet.create({
 
   button: {
     width: 110,
+  },
+
+  confirmationContainer: {
+    marginTop: 20,
+  },
+
+  confirmationTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  chosenNumber: {
+    
   }
 });
 
