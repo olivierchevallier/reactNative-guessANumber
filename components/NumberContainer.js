@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Colors from '../constants/colors';
 
 const NumberContainer = props => {
   let number = parseInt(props.children);
@@ -11,14 +11,21 @@ const NumberContainer = props => {
     setShowingNumber(0);
   }
 
+  const timeoutDuration = (base) => {
+    if (showingNumber < number) {
+      return base / (number + 1 - showingNumber);
+    } else {
+      return base / (showingNumber + 1 - number);
+    }
+  }
 
   setTimeout(() => {
     if (showingNumber < number) {
       setShowingNumber(showingNumber + 1);
-    } else if (showingNumber !== number) {
-      setShowingNumber(0);
+    } else if (showingNumber > number) {
+      setShowingNumber(showingNumber - 1);
     }
-  }, (500/((number + 1) - showingNumber)));
+  }, timeoutDuration(500));
 
   return (
     <View style={ styles.numberContainer }>

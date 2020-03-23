@@ -45,10 +45,9 @@ const StartGameScreen = props => {
 
   if (confirmed) {
     confirmOutput = (
-      <Card style={ styles.confirmationContainer }>
-        <Text style={ [styles.defaultText, styles.confirmationTitle] }>Vous avez choisi le nombre</Text>
+      <Card style={ styles.confirmationContainer } title="Vous avez choisi le nombre">
         <NumberContainer>{ selectedNumber }</NumberContainer>
-        <Button title="Commencer " />
+        <Button title="Commencer " onPress={ ()=> props.onStartGame(selectedNumber) }/>
       </Card>
     );
   }
@@ -57,8 +56,7 @@ const StartGameScreen = props => {
     <TouchableWithoutFeedback onPress={ ()=>{ Keyboard.dismiss() } }>
       <View style={ styles.screen }>
         <Text style={ [styles.defaultText, styles.title] }>Commencer une nouvelle partie</Text>
-        <Card style={ styles.card }>
-          <Text style={ styles.defaultText }>Entrez un nombre</Text>
+        <Card style={ styles.card } title="Entrez un nombre">
           <Input 
             style={ styles.numericInput } 
             placeholder="Ex: 36" 
@@ -122,15 +120,6 @@ const styles = StyleSheet.create({
   confirmationContainer: {
     marginTop: 20,
   },
-
-  confirmationTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  chosenNumber: {
-    
-  }
 });
 
 export default StartGameScreen;

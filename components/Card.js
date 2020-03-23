@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import Colors from '../constants/colors';
 
 const Card = props => {
   return (
     <View style={ {...styles.card, ...props.style} }>
+      <Text style={ styles.title }>{ props.title }</Text>
       { props.children }
     </View>
   );
@@ -21,6 +22,13 @@ const styles = StyleSheet.create({
     //elevation: 5,
     borderRadius: 10,
   },
+
+  title: {
+    color: Colors.text,
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
 });
 
 export default Card;
