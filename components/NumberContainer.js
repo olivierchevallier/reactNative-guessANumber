@@ -25,7 +25,7 @@ const NumberContainer = props => {
     } else if (showingNumber > number) {
       setShowingNumber(showingNumber - 1);
     }
-  }, timeoutDuration(500));
+  }, timeoutDuration(200));
 
   return (
     <View style={ styles.numberContainer }>

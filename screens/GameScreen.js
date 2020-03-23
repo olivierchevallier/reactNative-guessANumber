@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -16,16 +16,36 @@ const generateRandomBetween = (min, max, exclude) => {
 };
 
 const GameScreen = props => {
-  const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+  const currentMin = useRef(1);
+  const currentMax = useRef(100);
+  const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(currentMin.current, currentMax.current, props.userChoice));
+
+  const nextGuessHandler = (direction) => {
+    if ((direction < 0 && currentGuess < props.userChoice) || (direction > 0 && currentGuess > props.userChoice)) {
+      Alert.alert(
+        'Vous essayez de tricher !', 
+        'Je t\'ai reconnu petit tricheur... je te laisse une chance de me donner la bonne indication', 
+        [{ text: 'Compris !', style: 'destructive', onPress: ()=>{} }]
+      );
+    } else {
+      if(direction < 0) {
+        currentMax.current = currentGuess;
+      } else {
+        currentMin.current = currentGuess;
+      }
+      setCurrentGuess(generateRandomBetween(currentMin.current, currentMax.current, currentGuess));
+    }
+    console.log('min : ' + currentMin.current + 'max : ' + currentMax.current);
+  };
 
   return (
     <View style={ styles.screen }>
       <Card title="Choix de l'ordinateur">
         <NumberContainer>{ currentGuess }</NumberContainer>
-        <View style={ styles.buttonContainer }>
-          <Button title="Plus petit" onPress={ () => {} }/>
-          <Button title="Plus grand" onPress={ () => {} }/>
-        </View>
+        <Card style={ styles.buttonContainer }>
+          <Button title="Plus petit" onPress={ () => { nextGuessHandler(-1) } }/>
+          <Button title="Plus grand" onPress={ () => { nextGuessHandler(1) } }/>
+        </Card>
       </Card>
     </View>
   );
@@ -40,9 +60,10 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: 20,
-    width: '90%',
+    width: '85%',
+    padding: 0,
   }
 });
 
