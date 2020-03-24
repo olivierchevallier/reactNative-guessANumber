@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginVertical: 12,
+    fontFamily: 'open-sans',
   },
 
   card: {
