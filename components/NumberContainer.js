@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
+
+import Title from '../components/Title';
+
 import Colors from '../constants/colors';
 
 const NumberContainer = props => {
@@ -28,23 +31,17 @@ const NumberContainer = props => {
   }, timeoutDuration(200));
 
   return (
-    <View style={ styles.numberContainer }>
-      <Text style={ styles.number }>{ showingNumber }</Text>
+    <View>
+      <Title style={ styles.number }>{ showingNumber }</Title>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  numberContainer: {
-
-  },
-
   number: {
-    color: Colors.text,
     marginVertical: 10,
     textAlign: 'center',
     fontSize: 40,
-    fontWeight: 'bold',
   },
 });
 

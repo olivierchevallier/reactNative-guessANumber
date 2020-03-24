@@ -13,7 +13,7 @@ import Card from '../components/Card';
 import Input from '../components/Input';
 import Colors from '../constants/colors';
 import NumberContainer from '../components/NumberContainer';
-import { reset } from 'expo/build/AR';
+import Title from '../components/Title';
 
 const StartGameScreen = props => {
   const [enteredValue, setEnteredValue] = useState('');
@@ -55,7 +55,7 @@ const StartGameScreen = props => {
   return (
     <TouchableWithoutFeedback onPress={ ()=>{ Keyboard.dismiss() } }>
       <View style={ styles.screen }>
-        <Text style={ [styles.defaultText, styles.title] }>Commencer une nouvelle partie</Text>
+        <Title style={ styles.title }>Commencer une nouvelle partie</Title>
         <Card style={ styles.card } title="Entrez un nombre">
           <Input 
             style={ styles.numericInput } 
@@ -88,9 +88,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 20,
     marginVertical: 12,
-    fontFamily: 'open-sans',
   },
 
   card: {
@@ -108,10 +106,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-  },
-
-  defaultText: {
-    color: Colors.text,
   },
 
   button: {

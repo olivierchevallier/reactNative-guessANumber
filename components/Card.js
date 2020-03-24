@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import Title from '../components/Title';
+
 import Colors from '../constants/colors';
 
 const Card = props => {
   return (
     <View style={ {...styles.card, ...props.style} }>
-      <Text style={ styles.title }>{ props.title }</Text>
+      <Title style={ styles.title }>{ props.title }</Title>
       { props.children }
     </View>
   );
@@ -24,9 +26,6 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: Colors.text,
-    fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 12,
   }

@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import BodyText from '../components/BodyText';
 
 import Colors from '../constants/colors';
 
@@ -10,10 +11,10 @@ const GameOverScreen = props => {
   return (
     <View style={ styles.screen }>
       <Card title="J'ai deviné votre nombre" style={ styles.messageContainer }>
-        <Text style={ styles.text }>Il m'a fallu</Text>
+        <BodyText style={ styles.text }>Il m'a fallu</BodyText>
         <NumberContainer>{ props.guessRounds}</NumberContainer>
-        <Text style={ styles.text }>essais</Text>
-        <Text style={ [styles.text, styles.spaced] }>Votre nombre était</Text>
+        <BodyText style={ styles.text }>essais</BodyText>
+        <BodyText style={ [styles.text, styles.spaced] }>Votre nombre était</BodyText>
         <NumberContainer>{ props.userNumber }</NumberContainer>
         <Button title="Nouvelle partie" onPress={ props.onNewGame }/>
       </Card>
@@ -30,8 +31,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 15,
-    fontWeight: 'bold',
-    color: Colors.text,
   },
 
   spaced: {
