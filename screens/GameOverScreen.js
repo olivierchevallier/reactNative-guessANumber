@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, StyleSheet } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -10,6 +10,7 @@ import Colors from '../constants/colors';
 const GameOverScreen = props => {
   return (
     <View style={ styles.screen }>
+      <Image source={ require('../assets/gameOver.png') } style={ styles.image } />
       <Card title="J'ai deviné votre nombre" style={ styles.messageContainer }>
         <BodyText style={ styles.text }>Il m'a fallu</BodyText>
         <NumberContainer>{ props.guessRounds}</NumberContainer>
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 50,
   },
 
   text: {
@@ -40,6 +42,13 @@ const styles = StyleSheet.create({
   messageContainer: {
     alignItems: 'center',
     textAlign: 'center',
+  },
+
+  image: {
+    width: 180,
+    height: 180,
+    borderRadius: 100,
+    marginBottom: 30,
   },
 });
 
