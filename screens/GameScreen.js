@@ -16,7 +16,7 @@ const GameScreen = props => {
   const currentMin = useRef(1);
   const currentMax = useRef(100);
   const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(currentMin.current, currentMax.current, props.userChoice));
-  const [rounds, setRounds] = useState(0);
+  const [rounds, setRounds] = useState(1);
 
   // Ici on décompose le tableau props pour pouvoir passer les dépendances à useEffect
   // Sans ça, il faudrait passer props.userChoice et props.onGameOver à useEffect
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
   buttonContainer: {

@@ -1,12 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+import NumberContainer from '../components/NumberContainer';
+import Card from '../components/Card';
 
 import Colors from '../constants/colors';
 
 const GameOverScreen = props => {
   return (
     <View style={ styles.screen }>
-      <Text style={ styles.defaultText }>J'ai deviné votre nombre en { props.guessRounds } essais !</Text>
+      <Card title="J'ai deviné votre nombre" style={ styles.messageContainer }>
+        <Text style={ styles.text }>Il m'a fallu</Text>
+        <NumberContainer>{ props.guessRounds}</NumberContainer>
+        <Text style={ styles.text }>essais</Text>
+        <Text style={ [styles.text, styles.spaced] }>Votre nombre était</Text>
+        <NumberContainer>{ props.userNumber }</NumberContainer>
+        <Button title="Nouvelle partie" onPress={ props.onNewGame }/>
+      </Card>
     </View>
   );
 };
@@ -18,9 +28,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  defaultText: {
+  text: {
+    fontSize: 15,
+    fontWeight: 'bold',
     color: Colors.text,
-  }
+  },
+
+  spaced: {
+    marginTop: 20,
+  },
+
+  messageContainer: {
+    alignItems: 'center',
+    textAlign: 'center',
+  },
 });
 
 export default GameOverScreen;

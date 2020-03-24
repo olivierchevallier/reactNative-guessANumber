@@ -21,12 +21,17 @@ export default function App() {
     setGuessRounds(roundsCount);
   };
 
+  const newGameHandler = () => {
+    setUserNumber(null);
+    setGuessRounds(0);
+  }
+
   let content = <StartGameScreen onStartGame={ startGameHandler }/>;
 
   if (userNumber && guessRounds <= 0) {
     content = <GameScreen userChoice={ userNumber } onGameOver={ gameOverHandler }/>;
   } else if (guessRounds > 0) {
-    content = <GameOverScreen guessRounds={ guessRounds } />;
+    content = <GameOverScreen guessRounds={ guessRounds } userNumber={ userNumber } onNewGame={ newGameHandler } />;
   }
 
   return (
