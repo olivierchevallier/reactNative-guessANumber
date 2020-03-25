@@ -6,9 +6,14 @@ import Title from '../components/Title';
 import Colors from '../constants/colors';
 
 const Card = props => {
+  let title = null;
+  if (props.title) {
+    title = <Title style={ styles.title }>{ props.title }</Title>;
+  }
+
   return (
     <View style={ {...styles.card, ...props.style} }>
-      <Title style={ styles.title }>{ props.title }</Title>
+      { title }
       { props.children }
     </View>
   );

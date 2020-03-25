@@ -14,6 +14,7 @@ import Input from '../components/Input';
 import Colors from '../constants/colors';
 import NumberContainer from '../components/NumberContainer';
 import Title from '../components/Title';
+import CustomButton from '../components/CustomButton';
 
 const StartGameScreen = props => {
   const [enteredValue, setEnteredValue] = useState('');
@@ -47,7 +48,7 @@ const StartGameScreen = props => {
     confirmOutput = (
       <Card style={ styles.confirmationContainer } title="Vous avez choisi le nombre">
         <NumberContainer>{ selectedNumber }</NumberContainer>
-        <Button title="Commencer " onPress={ ()=> props.onStartGame(selectedNumber) }/>
+        <CustomButton onPress={ ()=> props.onStartGame(selectedNumber) }>Commencer</CustomButton>
       </Card>
     );
   }
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
 
   confirmationContainer: {
     marginTop: 20,
+    alignItems: 'center',
   },
 });
 

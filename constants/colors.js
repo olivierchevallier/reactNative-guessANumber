@@ -8,6 +8,7 @@ const dark = {
   tertiary: "rgb(72, 72, 74)",
   accent: "rgb(10, 132, 245)",
   danger: "rgb(255, 69, 58)",
+  success: "rgb(48, 209, 88)",
 };
 
 const light = {
@@ -18,6 +19,7 @@ const light = {
   tertiary: "rgb(199, 199, 204)",
   accent: "rgb(0, 122, 255)",
   danger: "rgb(255, 59, 58)",
+  success: "rgb(52, 199, 89)",
 };
 
 /*

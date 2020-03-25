@@ -3,7 +3,9 @@ import { View, Text, Image, Button, StyleSheet } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import Title from '../components/Title';
 import BodyText from '../components/BodyText';
+import CustomButton from '../components/CustomButton';
 
 import Colors from '../constants/colors';
 
@@ -12,12 +14,12 @@ const GameOverScreen = props => {
     <View style={ styles.screen }>
       <Image source={ require('../assets/gameOver.png') } style={ styles.image } />
       <Card title="J'ai deviné votre nombre" style={ styles.messageContainer }>
-        <BodyText style={ styles.text }>Il m'a fallu</BodyText>
+        <BodyText>Il m'a fallu</BodyText>
         <NumberContainer>{ props.guessRounds}</NumberContainer>
-        <BodyText style={ styles.text }>essais</BodyText>
-        <BodyText style={ [styles.text, styles.spaced] }>Votre nombre était</BodyText>
+        <BodyText>essais</BodyText>
+        <Title style={ styles.spaced }>Votre nombre était</Title>
         <NumberContainer>{ props.userNumber }</NumberContainer>
-        <Button title="Nouvelle partie" onPress={ props.onNewGame }/>
+        <CustomButton onPress={ props.onNewGame }>Nouvelle partie</CustomButton>
       </Card>
     </View>
   );
@@ -29,10 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 50,
-  },
-
-  text: {
-    fontSize: 15,
   },
 
   spaced: {

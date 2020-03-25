@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import CustomButton from '../components/CustomButton';
+import Colors from '../constants/colors';
 
 const generateRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min); max = Math.floor(max);
@@ -53,11 +56,16 @@ const GameScreen = props => {
     <View style={ styles.screen }>
       <Card title="Choix de l'ordinateur">
         <NumberContainer>{ currentGuess }</NumberContainer>
-        <Card style={ styles.buttonContainer }>
-          <Button title="Plus petit" onPress={ () => { nextGuessHandler(-1) } }/>
-          <Button title="Plus grand" onPress={ () => { nextGuessHandler(1) } }/>
-        </Card>
       </Card>
+      <Card style={ styles.buttonContainer }>
+          <CustomButton color={ Colors.danger } onPress={ () => { nextGuessHandler(-1) } }>
+            <Ionicons name="ios-remove" color="white" size={ 24 } />
+          </CustomButton>
+
+          <CustomButton color={ Colors.success } onPress={ () => { nextGuessHandler(1) } }>
+            <Ionicons name="ios-add" color="white" size={ 24 } />
+          </CustomButton>
+        </Card>
     </View>
   );
 };
@@ -67,15 +75,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 50,
   },
 
   buttonContainer: {
+    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
-    width: '85%',
-    padding: 0,
+    padding: 20,
   }
 });
 
