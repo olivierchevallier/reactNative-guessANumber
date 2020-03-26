@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
+import Title from '../components/Title';
+import BodyText from '../components/BodyText';
+
 import Colors from '../constants/colors';
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -15,11 +18,18 @@ const generateRandomBetween = (min, max, exclude) => {
   } else { return rnd; }
 };
 
+const renderListItem = (guess, index) => (
+  <View style={ [styles.pastGuessContainer, (index == 0 ? styles.firstGuess : null)] } key={ guess }>
+    <BodyText style={ styles.pastGuess }> { guess }</BodyText>
+  </View>
+);
+
 const GameScreen = props => {
   const currentMin = useRef(1);
   const currentMax = useRef(100);
-  const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(currentMin.current, currentMax.current, props.userChoice));
-  const [rounds, setRounds] = useState(1);
+  const initialGuess = generateRandomBetween(currentMin.current, currentMax.current, props.userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [pastGuesses, setPastGuesses] = useState([initialGuess]);
 
   // Ici on décompose le tableau props pour pouvoir passer les dépendances à useEffect
   // Sans ça, il faudrait passer props.userChoice et props.onGameOver à useEffect
@@ -30,7 +40,7 @@ const GameScreen = props => {
   // Quand le composant est "rerendered", la fonction ne s'executera que si les dépendences ont changé.
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(pastGuesses.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -47,8 +57,9 @@ const GameScreen = props => {
       } else {
         currentMin.current = currentGuess;
       }
-      setCurrentGuess(generateRandomBetween(currentMin.current, currentMax.current, currentGuess));
-      setRounds(rounds => rounds + 1);
+      const nextGuess = generateRandomBetween(currentMin.current, currentMax.current, currentGuess);
+      setCurrentGuess(nextGuess);
+      setPastGuesses(currPastGuesses => [nextGuess, ...currPastGuesses]);
     }
   };
 
@@ -57,6 +68,12 @@ const GameScreen = props => {
       <Card title="Choix de l'ordinateur">
         <NumberContainer>{ currentGuess }</NumberContainer>
       </Card>
+      <View style={ styles.pastGuessesContainer }>
+        <Title style={ styles.pastGuessesTitle }>Historique des propositions</Title>
+        <ScrollView contentContainerStyle={ styles.pastGuessesSV }>
+          { pastGuesses.map((guess, index) => renderListItem(guess, (index - pastGuesses.length + 1))) }
+        </ScrollView>
+      </View>
       <Card style={ styles.buttonContainer }>
           <CustomButton color={ Colors.danger } onPress={ () => { nextGuessHandler(-1) } }>
             <Ionicons name="ios-remove" color="white" size={ 24 } />
@@ -73,10 +90,9 @@ const GameScreen = props => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 12,
+    padding: 12, paddingBottom: 50, paddingTop: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 50,
   },
 
   buttonContainer: {
@@ -85,6 +101,37 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
     padding: 20,
+  },
+
+  pastGuessesContainer: {
+    flex: 1,
+    marginTop: 20,
+    width: '100%',
+  },
+
+  pastGuessesTitle: {
+    textAlign: 'center',
+  },
+
+  pastGuessesSV: {
+    flexGrow: 1,
+    marginTop: 12,
+  },
+
+  pastGuessContainer: {
+    borderTopColor: Colors.secondary,
+    borderTopWidth: 1,
+  },
+
+  firstGuess: {
+    borderBottomColor: Colors.secondary,
+    borderBottomWidth: 1,
+  }, 
+
+  pastGuess: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginVertical: 6,
   }
 });
 
