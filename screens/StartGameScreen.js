@@ -57,7 +57,7 @@ const StartGameScreen = props => {
     <TouchableWithoutFeedback onPress={ ()=>{ Keyboard.dismiss() } }>
       <View style={ styles.screen }>
         <Title style={ styles.title }>Commencer une nouvelle partie</Title>
-        <Card style={ styles.card } title="Entrez un nombre">
+        <Card style={ styles.inputContainer } title="Entrez un nombre">
           <Input 
             style={ styles.numericInput } 
             placeholder="Ex: 36" 
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
 
-  card: {
+  inputContainer: {
     width: '95%',
     alignItems: 'center',
   },

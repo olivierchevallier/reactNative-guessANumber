@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, ScrollView, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import NumberContainer from '../components/NumberContainer';
@@ -11,7 +11,7 @@ import BodyText from '../components/BodyText';
 import Colors from '../constants/colors';
 
 const generateRandomBetween = (min, max, exclude) => {
-  min = Math.ceil(min); max = Math.floor(max);
+  min = Math.ceil(min + 1); max = Math.floor(max);
   const rnd = Math.floor((Math.random() * (max - min)) + min);
   if (rnd === exclude) {
     return generateRandomBetween(min, max, exclude);
@@ -90,7 +90,7 @@ const GameScreen = props => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 12, paddingBottom: 50, paddingTop: 20,
+    padding: 12, paddingBottom: (Dimensions.get('window').height > 811 ? 50 : 20), paddingTop: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
   },

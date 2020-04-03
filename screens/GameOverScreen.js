@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, StyleSheet, Dimensions } from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -28,13 +28,13 @@ const GameOverScreen = props => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: (Dimensions.get('window').height > 811 ? 50 : 10),
   },
 
   spaced: {
-    marginTop: 20,
+    marginTop: (Dimensions.get('window').height > 811 ? 20 : 10),
   },
 
   messageContainer: {
@@ -43,10 +43,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 180,
-    height: 180,
+    width: (Dimensions.get('window').height > 811 ? 180 : 150), height: (Dimensions.get('window').height > 811 ? 180 : 150),
     borderRadius: 100,
-    marginBottom: 30,
   },
 });
 

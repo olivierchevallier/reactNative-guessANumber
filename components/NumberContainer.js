@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Dimensions } from 'react-native';
 
 import Title from '../components/Title';
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   number: {
     marginVertical: 10,
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: (Dimensions.get('window').height > 650 ? 40 : 25),
   },
 });
 
