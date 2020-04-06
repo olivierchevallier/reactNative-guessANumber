@@ -30,6 +30,7 @@ const GameScreen = props => {
   const initialGuess = generateRandomBetween(currentMin.current, currentMax.current, props.userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [pastGuesses, setPastGuesses] = useState([initialGuess]);
+  const [verticalOrientation, setVerticalOrientation] = useState(Dimensions.get('window').width < Dimensions.get('window').height);
 
   // Ici on décompose le tableau props pour pouvoir passer les dépendances à useEffect
   // Sans ça, il faudrait passer props.userChoice et props.onGameOver à useEffect
@@ -63,8 +64,20 @@ const GameScreen = props => {
     }
   };
 
-  return (
-    <View style={ styles.screen }>
+  useEffect(() => {
+    const updateLayout = () => {
+      setVerticalOrientation(Dimensions.get('window').width < Dimensions.get('window').height);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    }
+  });
+
+  let layout = (
+    <View style={ styles.screenV }>
       <Card title="Choix de l'ordinateur">
         <NumberContainer>{ currentGuess }</NumberContainer>
       </Card>
@@ -82,15 +95,51 @@ const GameScreen = props => {
           <CustomButton color={ Colors.success } onPress={ () => { nextGuessHandler(1) } }>
             <Ionicons name="ios-add" color="white" size={ 24 } />
           </CustomButton>
-        </Card>
+      </Card>
     </View>
   );
+
+  if (!verticalOrientation) {
+    layout = (
+      <View style={ styles.screenH }>
+        <View style={ styles.leftSection }>
+          <Card title="Choix de l'ordinateur">
+            <NumberContainer>{ currentGuess }</NumberContainer>
+          </Card>
+          <Card style={ styles.buttonContainer }>
+              <CustomButton color={ Colors.danger } onPress={ () => { nextGuessHandler(-1) } }>
+                <Ionicons name="ios-remove" color="white" size={ 24 } />
+              </CustomButton>
+
+              <CustomButton color={ Colors.success } onPress={ () => { nextGuessHandler(1) } }>
+                <Ionicons name="ios-add" color="white" size={ 24 } />
+              </CustomButton>
+          </Card>
+        </View>
+        <View style={ styles.pastGuessesContainer }>
+          <Title style={ styles.pastGuessesTitle }>Historique des propositions</Title>
+          <ScrollView contentContainerStyle={ styles.pastGuessesSV }>
+            { pastGuesses.map((guess, index) => renderListItem(guess, (index - pastGuesses.length + 1))) }
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
+
+  return layout;
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  screenV: {
     flex: 1,
     padding: 12, paddingBottom: (Dimensions.get('window').height > 811 ? 50 : 20), paddingTop: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  screenH: {
+    flex: 1, flexDirection: 'row',
+    paddingHorizontal: (Dimensions.get('window').width > 811 ? 40 : 12), paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -101,6 +150,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
     padding: 20,
+  },
+
+  leftSection: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 20,
   },
 
   pastGuessesContainer: {

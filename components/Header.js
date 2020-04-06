@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 import Title from '../components/Title';
@@ -6,10 +6,25 @@ import Title from '../components/Title';
 import Colors from '../constants/colors';
 
 const Header = props => {
+  const [ windowHeight, setWindowHeight ] = useState(Dimensions.get('window').height);
   let headerStyle = styles.header;
 
-  if (Dimensions.get('window').height > 811) {
+  useEffect(() => {
+    const updateLayout = () => {
+      setWindowHeight(Dimensions.get('window').height);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    };
+  });
+
+  if (windowHeight > 811) {
     headerStyle = styles.bigHeader;
+  } else if (windowHeight < 450) {
+    headerStyle = styles.smallHeader;
   }
 
   return (
@@ -30,6 +45,13 @@ const styles = StyleSheet.create({
   bigHeader: {
     width: '100%', height: 100,
     paddingTop: 36,
+    backgroundColor: Colors.primary,
+    alignItems: 'center', justifyContent: 'center',
+  },
+
+  smallHeader: {
+    width: '100%', height: 50,
+    paddingTop: 5,
     backgroundColor: Colors.primary,
     alignItems: 'center', justifyContent: 'center',
   }
