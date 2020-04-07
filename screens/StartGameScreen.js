@@ -8,6 +8,7 @@ import {
   Keyboard, 
   Alert,
   Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import Card from '../components/Card';

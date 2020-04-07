@@ -132,14 +132,14 @@ const GameScreen = props => {
 const styles = StyleSheet.create({
   screenV: {
     flex: 1,
-    padding: 12, paddingBottom: (Dimensions.get('window').height > 811 ? 50 : 20), paddingTop: 20,
+    padding: 12,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
 
   screenH: {
     flex: 1, flexDirection: 'row',
-    paddingHorizontal: (Dimensions.get('window').width > 811 ? 40 : 12), paddingVertical: 12,
+    padding: 12,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
