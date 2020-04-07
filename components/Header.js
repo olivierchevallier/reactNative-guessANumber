@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
 
 import Title from '../components/Title';
 
@@ -28,7 +28,7 @@ const Header = props => {
   }
 
   return (
-    <View style={ headerStyle }>
+    <View style={ {...headerStyle, ...Platform.select({ android: styles.headerAndroid })} }>
       <Title>{ props.title }</Title>
     </View>
   );
@@ -54,7 +54,12 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     backgroundColor: Colors.primary,
     alignItems: 'center', justifyContent: 'center',
-  }
+  },
+
+  headerAndroid: {
+    height: 70,
+    paddingTop: 20,
+  },
 });
 
 export default Header;
